@@ -5,7 +5,7 @@ There are different waveshaping algorithms (up to 16) that can be selected by me
 
 
 ## User Interface
-- on/off switch + tiny led
+- On/off switch + tiny led
 - 16 LEDs strip
 - Seven segment display
 - Volume potentiometer
@@ -14,12 +14,7 @@ There are different waveshaping algorithms (up to 16) that can be selected by me
 - 2 mode selection buttons (next/prev)
 
 
-## Modes
-- off: only the dot of the seven segment display is turned on (plus some random slow flashes of the flashing LED)
-- mode 0 (tracker):
-- mode 1 (filler):
-- mode 2 (kitt car):
-- mode 3 (binary counter):
+## Algorithms
 
 
 ## Microcontroller in/out pins
