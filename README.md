@@ -11,7 +11,7 @@ There are different waveshaping algorithms (up to 16) that can be selected by me
 - Volume potentiometer
 - Pitch potentiometer
 - 2 waveform shaping potentiometers
-- 2 mode selection buttons (next/prev)
+- 2 algorithm selection buttons (next/prev)
 
 
 ## Algorithms
@@ -22,7 +22,7 @@ There are different waveshaping algorithms (up to 16) that can be selected by me
     - pitch potentiometer (pitch_pot)
     - 2 waveform shaping potentiometers (ws_pot_1, ws_pot_2)
 - 2 digital input ports:
-    - mode selection buttons (next_btn, prev_btn)
+    - algorithm selection buttons (next_btn, prev_btn)
 - 7 digital output ports:
     - waveform output (wave_out)
     - led strip display shift register (ls_clk, ls_latch, ls_data)

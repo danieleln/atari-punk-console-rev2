@@ -41,12 +41,12 @@ const uint8_t hex_num_map[16] = {
 // that drives the seven segment display
 void ssd_init (void)
 {
-    pinMode(ssd_clk_pin, OUTPUT);
-    pinMode(ssd_latch_pin, OUTPUT);
-    pinMode(ssd_data_pin, OUTPUT);
+    pinMode(ssd_clk, OUTPUT);
+    pinMode(ssd_latch, OUTPUT);
+    pinMode(ssd_data, OUTPUT);
 
-    digitalWrite(ssd_clk_pin, LOW);
-    digitalWrite(ssd_latch_pin, LOW);
+    digitalWrite(ssd_clk, LOW);
+    digitalWrite(ssd_latch, LOW);
 }
 
 
@@ -133,26 +133,26 @@ void ssd_shift_out (bool status);
      */
 
     // shifting out the dot
-    digitalWrite(ssd_data_pin, _ssd.dot_enable);
+    digitalWrite(ssd_data, _ssd.dot_enable);
 
     // pulse the clk
-    digitalWrite(ssd_clk_pin, HIGH);
-    digitalWrite(ssd_clk_pin, LOW);
+    digitalWrite(ssd_clk, HIGH);
+    digitalWrite(ssd_clk, LOW);
 
 
 
 
     for (mask = 1; mask <= 63; mask <<= 1)
     {
-        digitalWrite(ssd_data_pin, current_char & _ssd.char_enable & mask);
+        digitalWrite(ssd_data, current_char & _ssd.char_enable & mask);
         
         // pulse the clk
-        digitalWrite(ssd_clk_pin, HIGH);
-        digitalWrite(ssd_clk_pin, LOW);
+        digitalWrite(ssd_clk, HIGH);
+        digitalWrite(ssd_clk, LOW);
     }
 
     // latch the new content to the output
-    digitalWrite(ssd_latch_pin, HIGH);
-    digitalWrite(ssd_latch_pin, LOW);
+    digitalWrite(ssd_latch, HIGH);
+    digitalWrite(ssd_latch, LOW);
 }
 
