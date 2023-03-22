@@ -111,6 +111,12 @@ void ssd_dot (bool status);
 void ssd_shift_out (bool status);
 {
     uint8_t mask;
+    uint8_t current_char;
+
+    if (ssd_common_anode)
+        current_char = !_ssd.current_char;
+    else
+        current_char = _ssd.current_char;
 
 
     /* data is sent out assuming the following
@@ -134,9 +140,11 @@ void ssd_shift_out (bool status);
     digitalWrite(ssd_clk_pin, LOW);
 
 
-    for (mask = 1; mask <= 64; mask <<= 1)
+
+
+    for (mask = 1; mask <= 63; mask <<= 1)
     {
-        digitalWrite(ssd_data_pin, _ssd.current_char & _ssd.char_enable & mask);
+        digitalWrite(ssd_data_pin, current_char & _ssd.char_enable & mask);
         
         // pulse the clk
         digitalWrite(ssd_clk_pin, HIGH);
