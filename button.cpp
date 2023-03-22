@@ -7,7 +7,7 @@ Button::Button (const uint8_t pin, const bool level): _pin(pin), _level_when_pre
     _last_update = millis();
 }
 
-void Button::update (unsigned int now)
+void Button::update (unsigned long now)
 {
     if (now - DEBOUNCE_DELAY > _last_update)
     {

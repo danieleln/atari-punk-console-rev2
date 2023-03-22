@@ -11,8 +11,13 @@ uint8_t ws_1, ws_2;
 // algorithm selection buttons ("button.hpp")
 Button next_btn(next_btn_pin, btn_pressed_level);
 Button prev_btn(prev_btn_pin, btn_pressed_level);
+
 void select_next_algorithm (void);
 void select_prev_algorithm (void);
+
+unsigned long update_time;
+
+
 
 
 // selected algorithm
@@ -64,7 +69,14 @@ void loop ()
     waveform = generate_waveform(algorithm, ws_1, ws_2);
 
 
+    // update the led strip
     ls_shift_out(waveform);
+
+    
+    // update buttons
+    update_time = millis();
+    next_btn.update(update_time);
+    prev_btn.update(update_time);
 }
 
 

@@ -13,7 +13,7 @@ class Button
     public:
     Button (const uint8_t, const bool);
 
-    void update (unsigned int);
+    void update (unsigned long);
 
     void (*on_release) (void) = nullptr;
     void (*on_press)   (void) = nullptr;
