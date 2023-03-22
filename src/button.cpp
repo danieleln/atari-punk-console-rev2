@@ -1,6 +1,7 @@
 #include "button.hpp"
+#include "inttypes.h"
 
-Button::Button (const byte pin, const bool level): _pin(pin), _level_when_pressed(level)
+Button::Button (const uint8_t pin, const bool level): _pin(pin), _level_when_pressed(level)
 {
     pinMode(INPUT, _pin);
     _last_update = millis();

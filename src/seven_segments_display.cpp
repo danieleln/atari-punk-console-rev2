@@ -1,7 +1,7 @@
 #include "seven_segment_display.hpp"
 #include "config.hpp"
 
-const byte hex_num_map[16] = {
+const uint8_t hex_num_map[16] = {
     /*
      *   ┌───A───┐
      *   │       │
@@ -33,35 +33,48 @@ const byte hex_num_map[16] = {
     0b1000111,  // F
 };
 
+
+
+
+
+// ssd_init initializes the pins of the shift register
+// that drives the seven segment display
+void ssd_init (void)
+{
+    pinMode(ssd_clk_pin, OUTPUT);
+    pinMode(ssd_latch_pin, OUTPUT);
+    pinMode(ssd_data_pin, OUTPUT);
+
+    digitalWrite(ssd_clk_pin, LOW);
+    digitalWrite(ssd_latch_pin, LOW);
+}
+
+
+
 // ssd_display_char displaies a given character 
 // expressed in the following way:
 //      binary char:            0b 0 0 0 0 0 0 0
 //      corresponding segment:  0b A B C D E F G
 // It leaves the dot as it is
-void ssd_display_char (const byte character)
+void ssd_display_char (const uint8_t character)
 {
     _ssd.current_char = character;
     _ssd.char_enable = true;
-
-    // updates the seven segment display
-    _ssd.queue_shift_out = true;
 }
 
 
 
 // ssd_display_num displaies an hexadecimal number
 // (from the hex_num_map). It leaves the dot as it is
-void ssd_display_num (const byte number)
+void ssd_display_num (const uint8_t number)
 {
     if (number < 16)
         _ssd.current_char = hex_num_map[number];
         _ssd.char_enable = true;
     else
-        // turns off the segments
+        // invalid number!!
+        // turns off the seven segments
         _ssd.char_enable = false;
-
-    // updates the seven segment display
-    _ssd.queue_shift_out = true;
 }
 
 
@@ -71,9 +84,6 @@ void ssd_display_num (const byte number)
 void ssd_clear_char (void)
 {
     _ssd.char_enable = false;
-
-    // updates the seven segment display
-    _ssd.queue_shift_out = true;
 }
 
 
@@ -82,12 +92,8 @@ void ssd_clear_char (void)
 // display (and also the dot)
 void ssd_clear_all (void)
 {
-
     _ssd.char_enable = false;
     _ssd.dot_enable = false;
-
-    // updates the seven segment display
-    _ssd.queue_shift_out = true;
 }
 
 
@@ -96,8 +102,49 @@ void ssd_clear_all (void)
 void ssd_dot (bool status);
 {
     _ssd.dot_enable = status;
+}
 
-    // updates the seven segment display
-    _ssd.queue_shift_out = true;
+
+
+// ssd_shift_out updates the display by shifting
+// out the content of _ssd
+void ssd_shift_out (bool status);
+{
+    uint8_t mask;
+
+
+    /* data is sent out assuming the following
+     * connection:
+     *
+     *           ┌──────────────────────────┐
+     *     clk ──┤                          │
+     *    data ──┤                          │
+     *   latch ──┤                          │
+     *           │ SN74LS595                │
+     *           └──┬──┬──┬──┬──┬──┬──┬──┬──┘
+     *              │  │  │  │  │  │  │  │
+     *              A  B  C  D  E  F  G  .
+     */
+
+    // shifting out the dot
+    digitalWrite(ssd_data_pin, _ssd.dot_enable);
+
+    // pulse the clk
+    digitalWrite(ssd_clk_pin, HIGH);
+    digitalWrite(ssd_clk_pin, LOW);
+
+
+    for (mask = 1; mask <= 64; mask <<= 1)
+    {
+        digitalWrite(ssd_data_pin, _ssd.current_char & _ssd.char_enable & mask);
+        
+        // pulse the clk
+        digitalWrite(ssd_clk_pin, HIGH);
+        digitalWrite(ssd_clk_pin, LOW);
+    }
+
+    // latch the new content to the output
+    digitalWrite(ssd_latch_pin, HIGH);
+    digitalWrite(ssd_latch_pin, LOW);
 }
 

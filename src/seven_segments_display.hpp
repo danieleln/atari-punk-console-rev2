@@ -1,18 +1,20 @@
 #pragma once
+#include "inttypes.h"
 #include "config.hpp"
 
-const byte hex_num_map[16];
+const uint8_t hex_num_map[16];
 
 struct {
-    byte current_char;
+    uint8_t current_char;
     bool char_enable;
     bool dot_enable;
-    volatile bool queue_shift_out;
 } _ssd;
 
-void ssd_display_char (const byte);
-void ssd_display_num  (const byte);
+
+void ssd_init         (void);
+void ssd_display_char (const uint8_t);
+void ssd_display_num  (const uint8_t);
 void ssd_clear_char   (void);
 void ssd_clear_all    (void);
 void ssd_dot          (bool);
-
+void ssd_shift_out    (void);

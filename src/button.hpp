@@ -1,5 +1,7 @@
 #pragma once
-#define DEBOUNCE_DELAY 50
+#include "inttypes.h"
+
+#define DEBOUNCE_DELAY 50 // ms
 
 #define ACTIVE_HIGH HIGH
 #define ACTIVE_LOW  LOW
@@ -8,7 +10,7 @@
 class Button
 {
     public:
-    Button (const byte, const bool);
+    Button (const uint8_t, const bool);
 
     void update (unsigned int);
     void update (void);
@@ -18,7 +20,7 @@ class Button
 
 
     private:
-    const byte _pin;
+    const uint8_t _pin;
     const bool _level_when_pressed;
     unsigned long _last_update;
     bool _was_pressed;

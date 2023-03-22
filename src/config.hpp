@@ -2,9 +2,9 @@
 #include "button.hpp"
 
 // potentiometers
-#define pot_1_pin           1
-#define pot_2_pin           1
-#define pot_3_pin           1
+#define ws_pot_1_pin        1
+#define ws_pot_2_pin        1
+#define pitch_pot_pin       1
 
 
 
@@ -15,8 +15,8 @@
 
 
 
-// flashing LED
-#define flashing_led_pin    1
+// waveform output
+#define wave_out_pin    1
 
 
 
