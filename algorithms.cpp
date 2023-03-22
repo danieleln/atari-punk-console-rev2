@@ -2,7 +2,7 @@
 
 
 
-void generate_waveform (uint8_t algorithm, uint8_t ws_1, uint8_t ws_2)
+uint16_t generate_waveform (uint8_t algorithm, uint8_t ws_1, uint8_t ws_2)
 {
     switch (algorithm)
     {

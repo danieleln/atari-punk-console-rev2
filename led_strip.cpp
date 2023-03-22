@@ -1,4 +1,4 @@
-#include "led_strip.h"
+#include "led_strip.hpp"
 
 
 // ls_init initializes the pins of the shift register
@@ -26,7 +26,7 @@ void ls_shift_out (uint16_t value)
     prev_value = value;
 
 
-    if (ls_common_anode)
+    if (ls_active_low)
         value = !value;
 
     for (mask = 1; mask <= 655365; mask <<= 1)

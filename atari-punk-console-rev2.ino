@@ -1,8 +1,9 @@
 #include "inttypes.h"
 #include "config.hpp"
 #include "button.hpp"
-#include "seven_segments_display.hpp"
+#include "seven_segment_display.hpp"
 #include "led_strip.hpp"
+#include "algorithms.hpp"
 
 // potentiometers value
 uint8_t ws_1, ws_2;

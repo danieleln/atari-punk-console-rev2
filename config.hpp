@@ -35,9 +35,9 @@
 #elif defined(ls_common_anode) && defined(ls_common_cathode)
     #error "ls_common_anode and ls_common_cathode can't be defined at the same time"
 #elif defined(ls_common_anode)
-    const bool ls_common_anode = true;
+    const bool ls_active_low = true;
 #else
-    const bool ls_common_anode = false;
+    const bool ls_active_low = false;
 #endif
 
 
@@ -54,8 +54,8 @@
 #elif defined(ssd_common_anode) && defined(ssd_common_cathode)
     #error "ssd_common_anode and ssd_common_cathode can't be defined at the same time"
 #elif defined(ssd_common_anode)
-    const bool ssd_common_anode = true;
+    const bool ssd_active_low = true;
 #else
-    const bool ssd_common_anode = false;
+    const bool ssd_active_low = false;
 #endif
 

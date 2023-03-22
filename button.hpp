@@ -1,4 +1,5 @@
 #pragma once
+#include "Arduino.h"
 #include "inttypes.h"
 
 #define DEBOUNCE_DELAY 50 // ms
@@ -13,10 +14,9 @@ class Button
     Button (const uint8_t, const bool);
 
     void update (unsigned int);
-    void update (void);
 
-    void *on_release (void) = nullptr;
-    void *on_press   (void) = nullptr;
+    void (*on_release) (void) = nullptr;
+    void (*on_press)   (void) = nullptr;
 
 
     private:

@@ -3,7 +3,7 @@
 
 Button::Button (const uint8_t pin, const bool level): _pin(pin), _level_when_pressed(level)
 {
-    pinMode(INPUT, _pin);
+    pinMode(_pin, INPUT);
     _last_update = millis();
 }
 
@@ -18,17 +18,13 @@ void Button::update (unsigned int now)
 
         if (!_was_pressed & _is_pressed & (on_press != nullptr))
         {
-            on_press();
+            (*on_press)();
         }
         else if (_was_pressed & !_is_pressed & (on_release != nullptr))
         {
-            on_release();
+            (*on_release)();
         }
 
         _was_pressed = _is_pressed;
-}
-
-void Button::update (void)
-{
-    update(millis());
+    }
 }
