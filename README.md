@@ -1,5 +1,7 @@
-# Atary Punk Console revision 2
-Just a fancy button box (with not so much buttons actually, some potentiometers, a seven segment display and a ton of LEDs)
+# Atari Punk Console revision 2
+Revision of the famous Atari Punk Console, built around an atmega328p.
+This version features a led strip to visualize the output waveform, two potentiometers to shape the waveform and one potentiometer that controls the pitch of the waveform.
+There are different waveshaping algorithms (up to 16) that can be selected by means of two buttons. The number of the algorithm is visualized on a seven segment display.
 
 
 ## User Interface
