@@ -1,4 +1,4 @@
-# Button Box
+# Atary Punk Console revision 2
 Just a fancy button box (with not so much buttons actually, some potentiometers, a seven segment display and a ton of LEDs)
 
 
@@ -6,8 +6,9 @@ Just a fancy button box (with not so much buttons actually, some potentiometers,
 - on/off switch + tiny led
 - 16 LEDs strip
 - Seven segment display
-- big flashing LED
-- 3 potentiometers
+- Volume potentiometer
+- Pitch potentiometer
+- 2 waveform shaping potentiometers
 - 2 mode selection buttons (next/prev)
 
 
@@ -21,11 +22,12 @@ Just a fancy button box (with not so much buttons actually, some potentiometers,
 
 ## Microcontroller in/out pins
 - 3 analog input ports:
-    - potentiometers (pot_1, pot_2, pot_3)
+    - pitch potentiometer (pitch_pot)
+    - 2 waveform shaping potentiometers (ws_pot_1, ws_pot_2)
 - 2 digital input ports:
     - mode selection buttons (next_btn, prev_btn)
 - 7 digital output ports:
-    - flashing LED (flashing_led)
+    - waveform output (wave_out)
     - led strip display shift register (ls_clk, ls_latch, ls_data)
     - seven segment display shift register (ssd_clk, ssd_latch, ssd_data)
 
