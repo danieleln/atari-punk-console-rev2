@@ -33,17 +33,35 @@ uint16_t waveform = 0;
 
 void setup ()
 {
-    pinMode(wave_out, OUTPUT);
+    // set the wave_out pin as output
+    wave_out_DDRx |= 1<<wave_out_PBn;
 
-    // initialize pins for the led strip
+    // initializes pins for the led strip
     ls_init();
 
-    // initialize pins for the seven segment display
+    // initializes pins for the seven segment display
     ssd_init();
 
-    // change algorithm when pressing the button
+    // changes algorithm when pressing the button
     next_btn.on_press = select_next_algorithm;
     prev_btn.on_press = select_prev_algorithm;
+
+
+
+    // disables Compare Output Mode
+    TCCR1A &= ~(1<<COM1A1 | 1<<COM1A0 | 1<<COM1B1 | 1<<COM1B0);
+    // selects the Waveform Generation Mode to CTC (Clear Timer on Compare)
+    TCCR1A &= ~(1<<WGM11 | 1<<WGM10);
+    TCCR1B |=  1<<WGM12;
+    TCCR1B &= ~1<<WGM13;
+    // enables the Output Compare Interrupt for the register A
+    TIMSK1 |= 1<<OCIE1A;
+    // sets the Output Compare Register A
+    OCR1A |= 7687;
+
+
+    // enables interrupts
+    sei();
 }
 
 
@@ -62,6 +80,8 @@ void loop ()
     // can be obtained simply by shifting the value of 2 binary
     // places (from 2^10 to 2^8)
     ws_1 = analogRead(ws_pot_1) >> 2;
+
+
     ws_2 = analogRead(ws_pot_2) >> 2;
 
     
@@ -127,3 +147,20 @@ void update_ssd (void)
     // updates the display
     ssd_shift_out();
 }
+
+
+volatile uint16_t mask = 0;
+
+ISR(TIMER1_COMPA_vect)
+{
+    mask <<= 1;
+    if (mask == 0) mask = 1;
+
+
+    if (waveform & mask)
+        wave_out_PORTx |= 1<<wave_out_PBn;
+    else
+        wave_out_PORTx &= ~1<<wave_out_PBn;
+}
+
+

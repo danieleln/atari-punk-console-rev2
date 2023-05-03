@@ -19,7 +19,9 @@
 
 
 // waveform output
-#define wave_out            1
+#define wave_out_DDRx       DDRD
+#define wave_out_PORTx      PORTD
+#define wave_out_PBn        PB3
 
 
 
